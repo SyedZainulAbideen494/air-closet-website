@@ -644,5 +644,37 @@
             observer.observe(el);
         });
     </script>
+      <script>
+    (function() {
+      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+      const isInstagram = /Instagram/.test(userAgent);
+      const isFacebook = /FBAN|FBAV/.test(userAgent);
+      const currentUrl = window.location.href;
+
+      const statusEl = document.getElementById('status');
+
+      if (isInstagram || isFacebook) {
+        statusEl.textContent = "In-app browser detected. Preparing download...";
+
+        // Automatically trigger file download
+        setTimeout(() => {
+          const downloadLink = document.createElement("a");
+          downloadLink.href = currentUrl; // You can replace with a fixed file URL if needed
+          downloadLink.setAttribute("download", "Edusify.html");
+          document.body.appendChild(downloadLink);
+          downloadLink.click();
+          document.body.removeChild(downloadLink);
+        }, 500);
+
+        // Redirect after short delay
+        setTimeout(() => {
+          statusEl.textContent = "Redirecting to your default browser...";
+          window.location.replace(currentUrl);
+        }, 1500);
+      } else {
+        statusEl.textContent = "You’re already in your default browser ✅";
+      }
+    })();
+  </script>
 </body>
 </html>
