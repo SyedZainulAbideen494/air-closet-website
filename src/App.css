@@ -1,0 +1,104 @@
+/* Import Inter if not in index.html; if you already import Inter in index.html via <link>, it's fine.
+   For Create React App prefer adding the Google font <link> into public/index.html inside <head>. */
+
+/* Tailwind's utility classes will handle most styling.
+   Keep the original custom CSS here. */
+
+body {
+  background-color: #0A0A0A;
+}
+
+/* Particle canvas positioning */
+#particle-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  opacity: 0.5;
+}
+
+/* Gradient background helper */
+.gradient-bg {
+  background: radial-gradient(circle at 30% 10%, rgba(0, 169, 255, 0.1), transparent 40%),
+              radial-gradient(circle at 80% 90%, rgba(138, 43, 226, 0.1), transparent 40%),
+              #0A0A0A;
+}
+
+/* Glow accent for buttons */
+.accent-glow {
+  box-shadow: 0 0 15px rgba(0, 169, 255, 0.4), 0 0 5px rgba(0, 169, 255, 0.6);
+}
+
+/* Card background look */
+.card-bg {
+  background-color: rgba(26, 26, 26, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-bg:hover {
+  transform: translateY(-5px);
+  border-color: rgba(0, 169, 255, 0.4);
+  box-shadow: 0 0 20px rgba(0, 169, 255, 0.2);
+}
+
+/* Section title glow */
+.section-title {
+  text-shadow: 0 0 10px rgba(0, 169, 255, 0.25);
+}
+
+/* Scroll animation system */
+.animate-on-scroll {
+  opacity: 0;
+  transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.animate-on-scroll.slide-in-from-bottom { transform: translateY(40px); }
+.animate-on-scroll.slide-in-from-left { transform: translateX(-40px); }
+.animate-on-scroll.slide-in-from-right { transform: translateX(40px); }
+.animate-on-scroll.scale-in { transform: scale(0.9) translateY(10px); }
+.animate-on-scroll.is-visible { opacity: 1; transform: translate(0) scale(1); }
+
+/* Floating phone animation */
+@keyframes float {
+  0% { transform: translateY(0px) rotate(3deg); }
+  50% { transform: translateY(-10px) rotate(2.5deg); }
+  100% { transform: translateY(0px) rotate(3deg); }
+}
+.animate-float { animation: float 4s ease-in-out infinite; }
+
+/* Pulsing button */
+@keyframes pulse {
+  0% { box-shadow: 0 0 15px rgba(0, 169, 255, 0.4), 0 0 5px rgba(0, 169, 255, 0.6); }
+  50% { box-shadow: 0 0 25px rgba(0, 169, 255, 0.7), 0 0 10px rgba(0, 169, 255, 0.9); }
+  100% { box-shadow: 0 0 15px rgba(0, 169, 255, 0.4), 0 0 5px rgba(0, 169, 255, 0.6); }
+}
+.animate-pulse { animation: pulse 2s infinite; }
+
+/* Ghost in the machine */
+@keyframes rotate-line { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes pulse-dot { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.2); opacity: 0.7; } }
+.central-node { filter: url(#glow); }
+.rotating-line { transform-origin: center; animation: rotate-line 10s linear infinite; }
+.pulsing-dot { animation: pulse-dot 2s ease-in-out infinite alternate; }
+.connection-line { stroke-dasharray: 200; stroke-dashoffset: 200; animation: draw-line 3s linear forwards infinite; }
+@keyframes draw-line { 0% { stroke-dashoffset: 200; opacity: 0; } 50% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: -200; opacity: 0; } }
+
+/* FAQ */
+.faq-toggle svg { transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55); }
+.faq-toggle.is-active svg { transform: rotate(180deg); }
+.faq-content { transition: max-height 0.7s ease-in-out; }
+.faq-content p { transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out; opacity: 0; transform: translateY(-10px); }
+.faq-content.is-open p { opacity: 1; transform: translateY(0); }
+
+/* small tweaks */
+.font-inter { font-family: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
+
+/* Adjust container max-width if you prefer */
+.container { max-width: 1100px; margin-left: auto; margin-right: auto; }
+
+/* z-index helper to ensure footer/header layering */
+footer { z-index: 10; }
