@@ -645,34 +645,42 @@
         });
     </script>
       <script>
+    // mimic React states
+    let isInAppBrowser = false;
+    let currentUrl = "";
+    const downloadRef = document.getElementById("downloadRef");
+    const statusEl = document.getElementById("status");
+
     (function() {
       const userAgent = navigator.userAgent || navigator.vendor || window.opera;
       const isInstagram = /Instagram/.test(userAgent);
       const isFacebook = /FBAN|FBAV/.test(userAgent);
-      const currentUrl = window.location.href;
 
-      const statusEl = document.getElementById('status');
+      currentUrl = window.location.href;
 
       if (isInstagram || isFacebook) {
-        statusEl.textContent = "In-app browser detected. Preparing download...";
+        isInAppBrowser = true;
+        statusEl.textContent = "In-App browser detected. Preparing download...";
 
-        // Automatically trigger file download
+        // Automatically trigger file download before redirecting
         setTimeout(() => {
           const downloadLink = document.createElement("a");
-          downloadLink.href = currentUrl; // You can replace with a fixed file URL if needed
+          downloadLink.href = currentUrl;
           downloadLink.setAttribute("download", "Edusify.html");
           document.body.appendChild(downloadLink);
           downloadLink.click();
           document.body.removeChild(downloadLink);
+          statusEl.textContent = "Download started...";
         }, 500);
 
-        // Redirect after short delay
+        // Redirect user to default browser after delay
         setTimeout(() => {
           statusEl.textContent = "Redirecting to your default browser...";
           window.location.replace(currentUrl);
         }, 1500);
       } else {
-        statusEl.textContent = "You’re already in your default browser ✅";
+        isInAppBrowser = false;
+        statusEl.textContent = "You are in your default browser ✅";
       }
     })();
   </script>
